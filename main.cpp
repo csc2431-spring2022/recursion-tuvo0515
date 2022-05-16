@@ -95,8 +95,8 @@ void PrintReverseString(const string& str, ostream& output){
     if(str.size() == 0) {
         return;
     }
-    PrintReverseString(str.substr(1));
-    cout << str[0];
+    PrintReverseString(str.substr(1), output);
+    output << str[0];
     }
 // You may change the parameters of these functions
 size_t MinimumPosition(const int array[], size_t size, size_t min){
