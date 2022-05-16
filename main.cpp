@@ -11,7 +11,7 @@ using std::ostream;
 unsigned long long int Fibonacci(unsigned int n);
 void PrintReverseString(const string& str, ostream& output = cout);
 // You may change the parameters of these functions
-size_t MinimumPosition(const int array[], size_t size);
+size_t MinimumPosition(const int array[], size_t size, size_t min);
 void SelectionSort(int array[], size_t size);
 
 
@@ -49,7 +49,7 @@ int main() {
 
 	cout << "Testing Minimum Position Finding" << endl;
 	for (int i = 0; i < TESTS; ++i) {
-		minimumResponses[i] = MinimumPosition(data[i], ELEMENTS);
+		minimumResponses[i] = MinimumPosition(data[i], ELEMENTS, 0);
 		if (minimumResponses[i] == minimumSolutions[i]){
 			cout << "\tPassed " << ++passed << " tests" << endl;
 		}
@@ -85,14 +85,45 @@ int main() {
 }
 
 unsigned long long int Fibonacci(unsigned int n){
-	return 0;
+    if (n==0 || n ==1) {
+        return n;
+    }else{
+        return Fibonacci(n-1) + Fibonacci(n-2);
+    };
 }
 void PrintReverseString(const string& str, ostream& output){
-}
+    if(str.size() == 0) {
+        return;
+    }
+    PrintReverseString(str.substr(1));
+    cout << str[0];
+    }
 // You may change the parameters of these functions
-size_t MinimumPosition(const int array[], size_t size){
-	return 0;
+size_t MinimumPosition(const int array[], size_t size, size_t min){
+    if (size == min) {
+        return min;
+    } else {
+        if(array[size] < array[min]) {
+            return MinimumPosition(array, size, min + 1);
+        } else {
+            return MinimumPosition(array, size - 1, min);
+        }
+    }
 }
 void SelectionSort(int array[], size_t size){
-
+    int small = 0;
+    if (size == 1) {
+        return;
+    } else {
+        if(array[size - 1] <= array[size - 2]){
+            small = array[size - 1];
+            array[size - 1] = array[size - 2];
+            array[size - 2] = small;
+            SelectionSort(array, size- 1);
+        }
+        SelectionSort(array, size-1);
+        if(array[size-1] < array[size-2]){
+            SelectionSort(array,size);
+        }
+    }
 }
